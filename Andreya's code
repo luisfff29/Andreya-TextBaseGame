@@ -13,9 +13,9 @@ def move_between_rooms(current_room, move, rooms):
     current_room = rooms[current_room][move]
     return current_room
 
-def grab_item(current_room, move, rooms, inventory):
+def grab_item(item):
     # grab item from room put into inventory
-    inventory.append(rooms[current_room]['item'])
+    inventory.append(item)
     del rooms[current_room]['item']
 
 def main():
@@ -65,7 +65,7 @@ def main():
         elif command == 'get':
             item = input('What do you want to get?: ')
             if item in rooms[current_room]['item']:
-                inventory.append(item)
+                grab_item(item)
             else:
                 print(f'There\'s no {item} here.')
         elif command == 'exit':
