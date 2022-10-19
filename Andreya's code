@@ -49,28 +49,25 @@ def main():
     while command != 'exit':
         
         possible_moves = rooms[location].keys()
-        # print("Possible moves: ", *possible_moves)
-        
+
         print("Possible moves: go, get, exit")
-        command = input('Enter your next move.')
+        command = input('Enter your next move: ')
 
         if command == 'go':
+            print("Possible directions:", *possible_moves)
             if command in possible_moves:
                 next_room = rooms[location][direction]
                 location = next_room
             else:
-                print('Invalid direction')
-        else:
-            print('Goodbye. Thanks for playing...')
-
-        if command == 'get':
+                print('Invalid direction')            
+        elif command == 'get':
             item = input('What do you want to get? ')
             if item in rooms[current_room]['item']:
                 inventor_items.append(item)
             else:
-                print(f'Theres no {item} here.')
-        elif command in rooms[current_room]:
-            current_room = rooms[current_room][command]
+                print(f'There\'s no {item} here.')
+        elif command == 'exit':
+            print('Goodbye. Thanks for playing...')
         else:
             print('Invalid command')
 main()
