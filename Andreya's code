@@ -31,7 +31,6 @@ def main():
         'Stone Circle': {'North': 'Fairies Bedroom', 'East': 'Assembly Area', 'item': 'Dragon Flame'}
     }
     # start the player in the Assembly Area
-    location = 'Assembly Area'
     current_room = 'Assembly Area'
     inventory = [] # list begins empty
     items = {
@@ -48,22 +47,22 @@ def main():
     command = ''
     while command != 'exit':
         
-        possible_moves = rooms[location].keys()
+        possible_moves = rooms[current_room].keys()
 
         print("Possible moves: go, get, exit")
         command = input('Enter your next move: ')
 
         if command == 'go':
             print("Possible directions:", *possible_moves)
-            if command in possible_moves:
-                next_room = rooms[location][direction]
-                location = next_room
+            direction = input('What direction do you want to go?: ')
+            if direction in possible_moves:
+                current_room = rooms[current_room][direction]
             else:
-                print('Invalid direction')            
+                print('Invalid direction')
         elif command == 'get':
-            item = input('What do you want to get? ')
+            item = input('What do you want to get?: ')
             if item in rooms[current_room]['item']:
-                inventor_items.append(item)
+                inventory.append(item)
             else:
                 print(f'There\'s no {item} here.')
         elif command == 'exit':
