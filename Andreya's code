@@ -54,17 +54,18 @@ def main():
     user_instructions()
     # Game loop
     while command != 'exit':
-
-        possible_moves = rooms[current_room].keys()
+        # List of possible moves omitting the 'item' key
+        possible_moves = [direct for direct in rooms[current_room].keys() if direct != 'item']
         print('-' * 27)
         print(f'You are in {current_room}')
         print(f'Inventory: {inventory}')
-        print(f'You see a {rooms[current_room].get("item", "NA")}')
+        if rooms[current_room].get('item', 'NA') != 'NA':
+            print(f'You see a {rooms[current_room]["item"]}')
         print("Possible moves: go, get, exit")
         command = input('Enter your next move: ')
 
         if command == 'go':
-            print("Possible directions:", *possible_moves)
+            print('Possible directions:', ', '.join(possible_moves))
             direction = input('What direction do you want to go?: ')
             if direction in possible_moves:
                 move_between_rooms(current_room, direction)
@@ -72,7 +73,7 @@ def main():
                 print('Invalid direction')
         elif command == 'get':
             item = input('What do you want to get?: ')
-            if item in rooms[current_room]['item']:
+            if item == rooms[current_room].get('item', 'NA'):
                 grab_item(item)
             else:
                 print(f'There\'s no {item} here.')
