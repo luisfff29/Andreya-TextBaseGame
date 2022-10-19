@@ -1,0 +1,79 @@
+# Andreya Colvin IT-140
+
+def user_instructions():
+    # Print a main menu and the commands
+    print("Welcome to Alfea, A College for Fairies ")
+    print("Collect 6 items to win the game, or be defeated by the Blood Witch.")
+    print("Move commands: go South, go North, go East, go West")
+    print("Add to Inventory: get 'item name'")
+
+
+def move_between_rooms(current_room, move, rooms):
+    # move to next room
+    current_room = rooms[current_room][move]
+    return current_room
+
+def grab_item(current_room, move, rooms, inventory):
+    # grab item from room put into inventory
+    inventory.append(rooms[current_room]['item'])
+    del rooms[current_room]['item']
+
+def main():
+    # a dictionary linking a room to other rooms
+    rooms = {
+        'Assembly Area': {'East': 'Garden Room', 'North': 'Study', 'West': 'Stone Circle'},
+        'Garden Room': {'North': 'Defensive Tactics Room', 'West': 'Assembly Area', 'item': 'Plant Herbs'},
+        'Defensive Tactics Room': {'North': 'Head Mistress Office', 'South': 'Garden Room', 'item': 'Mind Reader Necklace'},
+        'Head Mistress Office': {'South': 'Defensive Tactics Room', 'West': 'Study', 'item': 'Invisible Wand'},
+        'Study': {'South': 'Assembly Area', 'West': 'Swim Room', 'East': 'Head Mistress Office'},  # villain
+        'Swim Room': {'East': 'Study', 'South': 'Fairies Bedroom', 'item': 'Water Globes'},
+        'Fairies Bedroom': {'North': 'Swim Room', 'South': 'Stone Circle', 'item': 'Magic Crystal'},
+        'Stone Circle': {'North': 'Fairies Bedroom', 'East': 'Assembly Area', 'item': 'Dragon Flame'}
+
+    }
+    # start the player in the Assembly Area
+    location = 'Assembly Area'
+    current_room = 'Assembly Area'
+    inventory = [] # list begins empty
+    items = {
+        'Garden Room': 'Plant Herbs',
+        'Defensive Tactics Room' : 'Mind Reader Necklace',
+        'Head Mistress Office' : 'Invisible Wand',
+        'Swim Room' : 'Water Globes',
+        'Fairies Bedroom' : 'Magic Crystal',
+        'Stone Circle' : 'Dragon Flame'
+}
+    # show the player the game instructions
+    user_instructions()
+    # Game loop
+    command = ''
+    while command != 'exit':
+
+        possible_moves = rooms[location].keys()
+        print("Possible moves: ", *possible_moves)
+
+        direction = input('Move which direction? ').strip().lower()
+        print("You entered: ", direction)
+
+    if direction != 'exit':
+        if direction in possible_moves:
+            next_room = rooms[location][direction]
+            location = next_room
+        else:
+            print('Invalid direction')
+    else:
+        print('Goodbye. Thanks for playing...')
+
+
+        command = input('Enter your next move.').lower()
+    if command == 'take':
+        item = input('What do you want to take? ').lower()
+        if item in rooms[current_room]['item']:
+            inventor_items.append(item)
+        else:
+            print(f'Theres no {item} here.')
+    elif command in rooms[current_room]:
+        current_room = rooms[current_room][command]
+    else:
+        print('Invalid command')
+main()
