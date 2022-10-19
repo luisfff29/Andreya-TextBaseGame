@@ -33,8 +33,15 @@ def user_instructions():
 
 
 def move_between_rooms(room, direction):
+    global current_room, command
     # move to next room
-    return rooms[room][direction]
+    current_room = rooms[room][direction]
+    if current_room == 'Study':
+        if len(inventory) == 6:
+            print('Congratulations! You have collected all items and defeated the dragon!')
+        else:
+            print('NOM NOM... GAME OVER!')
+        command = 'exit'
 
 def grab_item(item):
     # grab item from room put into inventory
@@ -69,8 +76,8 @@ def main():
                 grab_item(item)
             else:
                 print(f'There\'s no {item} here.')
-        elif command == 'exit':
-            print('Goodbye. Thanks for playing...')
         else:
             print('Invalid command')
 main()
+
+print('Goodbye. Thanks for playing...')
