@@ -67,7 +67,7 @@ def main():
             print("Possible directions:", *possible_moves)
             direction = input('What direction do you want to go?: ')
             if direction in possible_moves:
-                current_room = rooms[current_room][direction]
+                move_between_rooms(current_room, direction)
             else:
                 print('Invalid direction')
         elif command == 'get':
