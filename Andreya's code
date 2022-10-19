@@ -1,5 +1,29 @@
 # Andreya Colvin IT-140
 
+# a dictionary linking a room to other rooms
+rooms = {
+    'Assembly Area': {'East': 'Garden Room', 'North': 'Study', 'West': 'Stone Circle'},
+    'Garden Room': {'North': 'Defensive Tactics Room', 'West': 'Assembly Area', 'item': 'Plant Herbs'},
+    'Defensive Tactics Room': {'North': 'Head Mistress Office', 'South': 'Garden Room', 'item': 'Mind Reader Necklace'},
+    'Head Mistress Office': {'South': 'Defensive Tactics Room', 'West': 'Study', 'item': 'Invisible Wand'},
+    'Study': {'South': 'Assembly Area', 'West': 'Swim Room', 'East': 'Head Mistress Office'},  # villain
+    'Swim Room': {'East': 'Study', 'South': 'Fairies Bedroom', 'item': 'Water Globes'},
+    'Fairies Bedroom': {'North': 'Swim Room', 'South': 'Stone Circle', 'item': 'Magic Crystal'},
+    'Stone Circle': {'North': 'Fairies Bedroom', 'East': 'Assembly Area', 'item': 'Dragon Flame'}
+}
+# start the player in the Assembly Area
+current_room = 'Assembly Area'
+inventory = []  # list begins empty
+items = {
+    'Garden Room': 'Plant Herbs',
+    'Defensive Tactics Room': 'Mind Reader Necklace',
+    'Head Mistress Office': 'Invisible Wand',
+    'Swim Room': 'Water Globes',
+    'Fairies Bedroom': 'Magic Crystal',
+    'Stone Circle': 'Dragon Flame'
+}
+command = ''
+
 def user_instructions():
     # Print a main menu and the commands
     print("Welcome to Alfea, A College for Fairies ")
@@ -8,10 +32,9 @@ def user_instructions():
     print("Add to Inventory: get 'item name'")
 
 
-def move_between_rooms(current_room, move, rooms):
+def move_between_rooms(room, direction):
     # move to next room
-    current_room = rooms[current_room][move]
-    return current_room
+    return rooms[room][direction]
 
 def grab_item(item):
     # grab item from room put into inventory
@@ -19,34 +42,12 @@ def grab_item(item):
     del rooms[current_room]['item']
 
 def main():
-    # a dictionary linking a room to other rooms
-    rooms = {
-        'Assembly Area': {'East': 'Garden Room', 'North': 'Study', 'West': 'Stone Circle'},
-        'Garden Room': {'North': 'Defensive Tactics Room', 'West': 'Assembly Area', 'item': 'Plant Herbs'},
-        'Defensive Tactics Room': {'North': 'Head Mistress Office', 'South': 'Garden Room', 'item': 'Mind Reader Necklace'},
-        'Head Mistress Office': {'South': 'Defensive Tactics Room', 'West': 'Study', 'item': 'Invisible Wand'},
-        'Study': {'South': 'Assembly Area', 'West': 'Swim Room', 'East': 'Head Mistress Office'},  # villain
-        'Swim Room': {'East': 'Study', 'South': 'Fairies Bedroom', 'item': 'Water Globes'},
-        'Fairies Bedroom': {'North': 'Swim Room', 'South': 'Stone Circle', 'item': 'Magic Crystal'},
-        'Stone Circle': {'North': 'Fairies Bedroom', 'East': 'Assembly Area', 'item': 'Dragon Flame'}
-    }
-    # start the player in the Assembly Area
-    current_room = 'Assembly Area'
-    inventory = [] # list begins empty
-    items = {
-        'Garden Room': 'Plant Herbs',
-        'Defensive Tactics Room' : 'Mind Reader Necklace',
-        'Head Mistress Office' : 'Invisible Wand',
-        'Swim Room' : 'Water Globes',
-        'Fairies Bedroom' : 'Magic Crystal',
-        'Stone Circle' : 'Dragon Flame'
-    }
     # show the player the game instructions
+    global command, current_room
     user_instructions()
     # Game loop
-    command = ''
     while command != 'exit':
-        
+
         possible_moves = rooms[current_room].keys()
         print('-' * 27)
         print(f'You are in {current_room}')
