@@ -51,7 +51,7 @@ def main():
         possible_moves = rooms[location].keys()
         print("Possible moves: ", *possible_moves)
 
-        direction = input('Move which direction? ').strip().lower()
+        direction = input('Move which direction? ')
         print("You entered: ", direction)
 
         if direction != 'exit':
@@ -64,9 +64,9 @@ def main():
             print('Goodbye. Thanks for playing...')
 
 
-        command = input('Enter your next move.').lower()
+        command = input('Enter your next move.')
         if command == 'take':
-            item = input('What do you want to take? ').lower()
+            item = input('What do you want to take? ')
             if item in rooms[current_room]['item']:
                 inventor_items.append(item)
             else:
