@@ -29,7 +29,6 @@ def main():
         'Swim Room': {'East': 'Study', 'South': 'Fairies Bedroom', 'item': 'Water Globes'},
         'Fairies Bedroom': {'North': 'Swim Room', 'South': 'Stone Circle', 'item': 'Magic Crystal'},
         'Stone Circle': {'North': 'Fairies Bedroom', 'East': 'Assembly Area', 'item': 'Dragon Flame'}
-
     }
     # start the player in the Assembly Area
     location = 'Assembly Area'
@@ -42,7 +41,7 @@ def main():
         'Swim Room' : 'Water Globes',
         'Fairies Bedroom' : 'Magic Crystal',
         'Stone Circle' : 'Dragon Flame'
-}
+    }
     # show the player the game instructions
     user_instructions()
     # Game loop
@@ -55,25 +54,25 @@ def main():
         direction = input('Move which direction? ').strip().lower()
         print("You entered: ", direction)
 
-    if direction != 'exit':
-        if direction in possible_moves:
-            next_room = rooms[location][direction]
-            location = next_room
+        if direction != 'exit':
+            if direction in possible_moves:
+                next_room = rooms[location][direction]
+                location = next_room
+            else:
+                print('Invalid direction')
         else:
-            print('Invalid direction')
-    else:
-        print('Goodbye. Thanks for playing...')
+            print('Goodbye. Thanks for playing...')
 
 
         command = input('Enter your next move.').lower()
-    if command == 'take':
-        item = input('What do you want to take? ').lower()
-        if item in rooms[current_room]['item']:
-            inventor_items.append(item)
+        if command == 'take':
+            item = input('What do you want to take? ').lower()
+            if item in rooms[current_room]['item']:
+                inventor_items.append(item)
+            else:
+                print(f'Theres no {item} here.')
+        elif command in rooms[current_room]:
+            current_room = rooms[current_room][command]
         else:
-            print(f'Theres no {item} here.')
-    elif command in rooms[current_room]:
-        current_room = rooms[current_room][command]
-    else:
-        print('Invalid command')
+            print('Invalid command')
 main()
