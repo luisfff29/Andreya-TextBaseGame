@@ -48,7 +48,10 @@ def main():
     while command != 'exit':
         
         possible_moves = rooms[current_room].keys()
-
+        print('-' * 27)
+        print(f'You are in {current_room}')
+        print(f'Inventory: {inventory}')
+        print(f'You see a {rooms[current_room].get("item", "NA")}')
         print("Possible moves: go, get, exit")
         command = input('Enter your next move: ')
 
