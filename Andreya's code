@@ -14,14 +14,6 @@ rooms = {
 # start the player in the Assembly Area
 current_room = 'Assembly Area'
 inventory = []  # list begins empty
-items = {
-    'Garden Room': 'Plant Herbs',
-    'Defensive Tactics Room': 'Mind Reader Necklace',
-    'Head Mistress Office': 'Invisible Wand',
-    'Swim Room': 'Water Globes',
-    'Fairies Bedroom': 'Magic Crystal',
-    'Stone Circle': 'Dragon Flame'
-}
 command = ''
 
 def user_instructions():
@@ -31,14 +23,13 @@ def user_instructions():
     print("Move commands: go South, go North, go East, go West")
     print("Add to Inventory: get 'item name'")
 
-
 def move_between_rooms(room, direction):
     global current_room, command
     # move to next room
     current_room = rooms[room][direction]
     if current_room == 'Study':
         if len(inventory) == 6:
-            print('Congratulations! You have collected all items and defeated the dragon!')
+            print('Congratulations! You have collected all items and defeated the Blood Witch!')
         else:
             print('NOM NOM... GAME OVER!')
         command = 'exit'
@@ -49,8 +40,8 @@ def grab_item(item):
     del rooms[current_room]['item']
 
 def main():
-    # show the player the game instructions
     global command, current_room
+    # show the player the game instructions
     user_instructions()
     # Game loop
     while command != 'exit':
